@@ -6,8 +6,9 @@ import currencyFormatter from 'currency-formatter'
 import {SummaryModal} from "./summary-modal";
 import moment from 'moment'
 
-
 var budget = 100
+
+var goal = 500
 
 @Component({
   selector: 'page-summary',
@@ -19,6 +20,8 @@ export class SummaryPage implements OnDestroy {
   }
 
   budget = budget
+
+  goal = goal
 
   transactions = null
   events = null
@@ -49,6 +52,21 @@ export class SummaryPage implements OnDestroy {
         this.events = events
       })
     })
+  }
+
+
+  getSaved () {
+    return (this.events || []).reduce((total, a) => {
+      if (a.saved) {
+        return a.saved + total
+      }
+
+      return total
+    }, 0)
+  }
+
+  getLevel () {
+    return this.getSaved() / 500
   }
 
   openModal(summary) {
@@ -93,7 +111,7 @@ export class SummaryPage implements OnDestroy {
   }
 
   getBudget (event) {
-    return event.type == 'weekly' ? budget * 10 : budget
+    return event.type == 'weekly' ? budget * 20 : budget
   }
 
   getSum(event) {
@@ -115,10 +133,10 @@ export class SummaryPage implements OnDestroy {
     return !this.isBalanceNegative(event) ? '../assets/head_focus.png' : '../assets/head_hurt.png'
   }
 
-  prettyPrintCurrency(amount) {
+  prettyPrintCurrency(amount, addSign = true) {
     var value = currencyFormatter.format(amount, {code: 'USD'})
 
-    if (amount > 0) {
+    if (amount > 0 && addSign) {
       return "+" + value
     }
 

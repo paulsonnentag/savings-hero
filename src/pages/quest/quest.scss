@@ -107,3 +107,13 @@ page-quest {
   transition: 0.2s all ease-out;
   height: 100%;
 }
+
+.mybar-label {
+  color: #fff;
+  position: absolute;
+  width: 200px;
+  top: 2px;
+  left: 50%;
+  margin-left: -100px;
+  text-align: center;
+}

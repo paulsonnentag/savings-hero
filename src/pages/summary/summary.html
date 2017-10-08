@@ -8,7 +8,23 @@
 
 
 <ion-content>
-  <ion-list no-lines>
+
+  <ion-toolbar ion-fixed style="padding: 10px 15px;">
+
+    <div class="quest-row">
+      <span class="bar-label">LEVEL</span>
+      <div class="bar bar-shield" style="margin-bottom: 0;">
+
+        <div class="mybar-label">({{prettyPrintCurrency(getSaved(), false)}} / {{prettyPrintCurrency(goal, false)}})</div>
+
+        <div class="bar-inner" [style.width]="(getLevel() * 100) + '%'">
+
+        </div>
+      </div>
+    </div>
+  </ion-toolbar>
+
+  <ion-list no-lines class="events-items">
 
     <ion-item *ngFor="let event of events" (click)="openModal(event)">
       <ion-avatar item-start>
