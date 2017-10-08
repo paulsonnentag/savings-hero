@@ -51,16 +51,31 @@ export class SummaryModal {
   }
 
   getMessage () {
+    if (this.type === 'weekly') {
+      if (this.spend <= this.budget) {
+        return `
+        Good job! You stayed in your budget of <b>${currencyFormatter.format(this.budget, {code: 'USD'})}</b> 
+        and spend <b>${currencyFormatter.format(this.budget - this.spend, {code: 'USD'})}</b> less this week 
+      `
+      }
+
+      return `
+        Unfortunately your quest this week wasn't successful. You went over your budget of ${currencyFormatter.format(this.budget, {code: 'USD'})} 
+        and spend <b>${currencyFormatter.format(Math.abs(this.budget - this.spend), {code: 'USD'})}</b> more 
+      `
+    }
+
+
     if (this.spend <= this.budget) {
       return `
-        Good job! You stayed in you budget of ${currencyFormatter.format(this.budget, {code: 'USD'})} 
-        and spend ${currencyFormatter.format(this.budget - this.spend, {code: 'USD'})} less 
+        Good job! You stayed in you budget of <b>${currencyFormatter.format(this.budget, {code: 'USD'})}</b> 
+        and spend <b>${currencyFormatter.format(this.budget - this.spend, {code: 'USD'})}</b> less today
       `
     }
 
     return `
-        Unfortunately your quest today wasn't successfull. You went over your budget of ${currencyFormatter.format(this.budget, {code: 'USD'})} today 
-        and spend ${currencyFormatter.format(Math.abs(this.budget - this.spend), {code: 'USD'})} more 
+        Unfortunately your quest today wasn't successful. You went over your budget of <b>${currencyFormatter.format(this.budget, {code: 'USD'})}</b> 
+        and spend <b>${currencyFormatter.format(Math.abs(this.budget - this.spend), {code: 'USD'})}</b> more 
       `
   }
 

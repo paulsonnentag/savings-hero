@@ -93,7 +93,7 @@ export class SummaryPage implements OnDestroy {
   }
 
   getBudget (event) {
-    return event.type == 'weekly' ? budget * 17 : budget
+    return event.type == 'weekly' ? budget * 10 : budget
   }
 
   getSum(event) {

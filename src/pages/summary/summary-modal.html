@@ -25,15 +25,14 @@
       <div class="hero-image" [class.hero-success]="spend <= budget"></div>
     </div>
 
-    <ion-card-content style="text-align: center">
-      <div>
-        {{getMessage(event)}}
+    <ion-card-content style="text-align: center; font-size: 17px;">
+      <div [innerHtml]="getMessage(event)">
       </div>
 
 
-      <div *ngIf="type === 'weekly' && saved == undefined" style="margin-top: 20px;">
+      <div *ngIf="type === 'weekly' && saved == undefined && (spend <= budget)" style="margin-top: 20px;">
 
-        <h3>How much do you want to save?</h3>
+        How much do you want to save?
 
         <button ion-button (click)="save(0)" color="light">Nothing</button>
         <button ion-button (click)="save(5)">5$</button>
@@ -41,11 +40,16 @@
         <button ion-button (click)="save(20)">20$</button>
       </div>
 
+      <div *ngIf="type === 'weekly' && saved == undefined && (spend > budget)" style="margin-top: 20px;">
+        <button ion-button (click)="save(0);dismiss()">OK</button>
+      </div>
+
+
 
       <div *ngIf="type === 'weekly' && saved != undefined" style="margin-top: 20px;">
 
-        <ion-badge color="light" *ngIf="saved === 0">You saved nothing this week</ion-badge>
-        <ion-badge  *ngIf="saved > 0">You saved {{prettyPrintCurrency(saved)}} this week</ion-badge>
+        <div *ngIf="saved === 0">You saved nothing this week</div>
+        <div *ngIf="saved > 0">You saved <ion-badge>{{prettyPrintCurrency(saved)}}</ion-badge> this week</div>
 
       </div>
 

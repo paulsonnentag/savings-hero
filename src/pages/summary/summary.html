@@ -13,13 +13,17 @@
     <ion-item *ngFor="let event of events" (click)="openModal(event)">
       <ion-avatar item-start>
         <img [src]="getIcon(event)">
-        <ion-badge *ngIf="event.type === 'weekly' && !event.saved">
+        <ion-badge *ngIf="event.type === 'weekly' && event.saved == undefined">
           new
         </ion-badge>
       </ion-avatar>
 
       <span [class.weekly-summary]="event.type === 'weekly'">
         {{formatDate(event)}}
+
+        <ion-badge *ngIf="event.type === 'weekly' && event.saved">
+          {{prettyPrintCurrency(event.saved)}}
+        </ion-badge>
       </span>
 
       <span item-end [class.negative-number]="isBalanceNegative(event)">
