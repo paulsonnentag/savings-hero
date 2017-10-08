@@ -58,7 +58,10 @@ eventsRef.on('value', (snapshot) => {
 
   events = _((snapshot.val()))
     .values()
-    .map(events => events)
+    .map(event => ({
+      type: event.type,
+      date: new Date(event.date)
+    }))
     .sortBy('date')
     .reverse()
     .value()

@@ -3,7 +3,7 @@ import {NavController} from 'ionic-angular';
 
 import store from '../../app/store'
 import currencyFormatter from 'currency-formatter'
-
+import moment from 'moment'
 
 @Component({
   selector: 'page-quest',
@@ -16,7 +16,7 @@ export class QuestPage implements OnDestroy {
 
   spend = 0
 
-  budget = 100
+  budget = 50
 
   actionQueue = []
 
@@ -28,6 +28,10 @@ export class QuestPage implements OnDestroy {
     this.transactions = store.getTransactions()
 
     if (this.transactions !== null) {
+      this.transactions = this.transactions.filter((transaction) => {
+        return transaction.date.getTime() > moment().startOf('day').valueOf()
+      })
+
       this.transactions.forEach(transaction => {
         this.spend += transaction.amount
       })
