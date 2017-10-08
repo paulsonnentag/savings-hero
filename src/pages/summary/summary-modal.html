@@ -21,7 +21,9 @@
       {{getTitle()}}
     </ion-card-header>
 
-    <div class="report-image" [class.report-success]="spend <= budget" ></div>
+    <div class="report-image">
+      <div class="hero-image" [class.hero-success]="spend <= budget" ></div>
+    </div>
 
     <ion-card-content style="text-align: center">
       {{getMessage(event)}}

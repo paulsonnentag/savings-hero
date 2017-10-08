@@ -7,7 +7,7 @@ import {SummaryModal} from "./summary-modal";
 import moment from 'moment'
 
 
-var budget = 200
+var budget = 100
 
 @Component({
   selector: 'page-summary',
@@ -51,56 +51,55 @@ export class SummaryPage implements OnDestroy {
     })
   }
 
-  openModal (summary) {
+  openModal(summary) {
     const referenceDate = moment(summary.date).startOf('day')
-    const beginning = summary.type === 'daily' ? referenceDate : referenceDate.subtract(6, 'days')
-    const ending = referenceDate.add(1, 'days')
+    const beginning = summary.type === 'daily' ? referenceDate.clone() : referenceDate.clone().subtract(6, 'days')
+    const ending = referenceDate.clone().add(1, 'days')
 
-    const filteredEvents =
-      (this.events || [])
+    const filteredTransactions =
+      (this.transactions || [])
         .filter(({date}) => {
-        const d =  moment(date).valueOf()
-         return d < ending.valueOf() && d >= beginning.valueOf()
-      })
+          const d = moment(date)
+          return d.valueOf() < ending.valueOf() && d.valueOf() >= beginning.valueOf()
+        })
 
-    const spend = filteredEvents.reduce((sum, event) => sum + event.amount, 0)
+    const spend = filteredTransactions.reduce((sum, event) => sum + event.amount, 0)
 
     const profileModal = this.modalCtrl.create(SummaryModal, {
       budget,
-      spend
+      spend,
+      date: this.formatDate(summary)
     });
     profileModal.present();
   }
 
-  formatDate (event) {
+  formatDate(event) {
     if (event.type == 'daily') {
-      return moment(event.date).format('dddd, MMMM Do')
+      return moment(event.date).format('dddd, MMM Do')
     }
   }
 
-  getSum (event) {
+  getSum(event) {
     const referenceDate = moment(event.date).startOf('day')
-    const beginning = event.type === 'daily' ? referenceDate : referenceDate.subtract(6, 'days')
-    const ending = referenceDate.add(1, 'days')
+    const beginning = event.type === 'daily' ? referenceDate.clone() : referenceDate.clone().subtract(6, 'days')
+    const ending = referenceDate.clone().add(1, 'days')
 
-    const filteredEvents =
-      (this.events || [])
+    const filteredTransactions =
+      (this.transactions || [])
         .filter(({date}) => {
-          const d =  moment(date).valueOf()
-          return d < ending.valueOf() && d >= beginning.valueOf()
+          const d = moment(date)
+          return d.valueOf() < ending.valueOf() && d.valueOf() >= beginning.valueOf()
         })
 
-    const spend = filteredEvents.reduce((sum, event) => sum + event.amount, 0)
-
-    return spend
+    return filteredTransactions.reduce((sum, event) => sum + event.amount, 0)
   }
 
-  getIcon (sum) {
+  getIcon(sum) {
     return budget >= sum ? '../assets/head_focus.png' : '../assets/head_hurt.png'
   }
 
   prettyPrintCurrency(amount) {
-    var value =  currencyFormatter.format(amount, {code: 'USD'})
+    var value = currencyFormatter.format(amount, {code: 'USD'})
 
     if (amount > 0) {
       return "+" + value

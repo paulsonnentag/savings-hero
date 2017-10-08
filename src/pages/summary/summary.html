@@ -15,9 +15,9 @@
         <img [src]="getIcon(getSum(event))">
       </ion-avatar>
 
-      {{formatDate(event)}} {{budget}}
+      {{formatDate(event)}}
 
-      <span item-end>{{prettyPrintCurrency(budget - getSum(event))}}</span>
+      <span item-end [class.negative-number]="(budget - getSum(event)) < 0">{{prettyPrintCurrency(budget - getSum(event))}}</span>
 
     </ion-item>
 

@@ -1,4 +1,12 @@
 .report-image {
+  padding: 20px 0;
+  width: 100%;
+  background-image: url('../assets/colored_castle.png');
+  background-size: cover;
+  background-position: bottom;
+}
+
+.hero-image {
   height: 130px;
   width: 100%;
   background-image: url('../assets/female_fall.png');
@@ -7,6 +15,6 @@
   background-position: center;
 }
 
-.report-image.report-success {
+.hero-image.hero-success {
   background-image: url('../assets/female_cheer1.png');
 }

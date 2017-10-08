@@ -125,6 +125,7 @@ export class HomePage implements OnDestroy{
   initAxis(category_list) {
     this.x = d3Scale.scaleLinear().rangeRound([this.width, 0]);
     this.y = d3Scale.scaleLinear().rangeRound([this.height, 0]);
+
     this.x.domain([0, d3Array.max(category_list, (d: any) => d.amount)]);
     this.y.domain([0, d3Array.max(category_list, (d, index) => index + 1)]);
   }

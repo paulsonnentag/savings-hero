@@ -11,10 +11,12 @@ export class SummaryModal {
 
   spend = 0
   budget = 0
+  date = ""
 
   constructor(params: NavParams, public viewCtrl: ViewController) {
     this.spend = params.get('spend')
     this.budget = params.get('budget')
+    this.date = params.get('date')
   }
 
   dismiss () {
