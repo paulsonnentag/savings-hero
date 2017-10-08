@@ -11,8 +11,8 @@ Especially since there is no nice way to track your expenses. All the existing a
 Our approach is different, **"Savings Hero"** combines financial expense tracking with fun features of RPG games. 
 Staying in budget will help you not only save money but also fight off the monsters that will get in your way on your journey to a nice little security. 
 
-You will probably ask yourself right now, "But isn't playing games only for kids?". 
-Well, No! Not at all. There are several demographic studies that show the distribution of especially casual games like Bejewelled (and Savings Hero) in more mature age bands. 
+You will probably ask yourself right now, **"But isn't playing games only for kids?"**. 
+Well, **No!** Not at all. There are several demographic studies that show the distribution of especially casual games like Bejewelled (and Savings Hero) in more mature age bands. 
 
 **This is where we come in.**
 - You want to get a little bit of "fat" to make sure you won't have problems in case of an emergency? 
