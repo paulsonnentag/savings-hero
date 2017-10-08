@@ -12,12 +12,19 @@
 
     <ion-item *ngFor="let event of events" (click)="openModal(event)">
       <ion-avatar item-start>
-        <img [src]="getIcon(getSum(event))">
+        <img [src]="getIcon(event)">
+        <ion-badge *ngIf="event.type === 'weekly' && !event.saved">
+          new
+        </ion-badge>
       </ion-avatar>
 
-      {{formatDate(event)}}
+      <span [class.weekly-summary]="event.type === 'weekly'">
+        {{formatDate(event)}}
+      </span>
 
-      <span item-end [class.negative-number]="(budget - getSum(event)) < 0">{{prettyPrintCurrency(budget - getSum(event))}}</span>
+      <span item-end [class.negative-number]="isBalanceNegative(event)">
+        {{getBalance(event)}}
+      </span>
 
     </ion-item>
 

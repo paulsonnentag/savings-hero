@@ -66,8 +66,11 @@ export class SummaryPage implements OnDestroy {
     const spend = filteredTransactions.reduce((sum, event) => sum + event.amount, 0)
 
     const profileModal = this.modalCtrl.create(SummaryModal, {
-      budget,
+      id: summary.id,
+      budget: this.getBudget(summary),
+      saved: summary.saved,
       spend,
+      type: summary.type,
       date: this.formatDate(summary)
     });
     profileModal.present();
@@ -77,6 +80,20 @@ export class SummaryPage implements OnDestroy {
     if (event.type == 'daily') {
       return moment(event.date).format('dddd, MMM Do')
     }
+
+    return 'Weekly Summary'
+  }
+
+  getBalance (event) {
+    return this.prettyPrintCurrency(this.getBudget(event) - this.getSum(event))
+  }
+
+  isBalanceNegative (event) {
+    return (this.getBudget(event) - this.getSum(event)) < 0
+  }
+
+  getBudget (event) {
+    return event.type == 'weekly' ? budget * 17 : budget
   }
 
   getSum(event) {
@@ -94,8 +111,8 @@ export class SummaryPage implements OnDestroy {
     return filteredTransactions.reduce((sum, event) => sum + event.amount, 0)
   }
 
-  getIcon(sum) {
-    return budget >= sum ? '../assets/head_focus.png' : '../assets/head_hurt.png'
+  getIcon(event) {
+    return !this.isBalanceNegative(event) ? '../assets/head_focus.png' : '../assets/head_hurt.png'
   }
 
   prettyPrintCurrency(amount) {
