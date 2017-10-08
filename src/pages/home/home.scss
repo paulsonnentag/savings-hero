@@ -2,9 +2,19 @@ page-home {
 
 }
 
+.center {
+  text-align: center;
+}
+
+.spendingGrid {
+  height:50%;
+  width: 100%;
+}
+
 .arc {
   &:hover {
     opacity: .85;
+    transform: scale(1.03, 1.03)
   }
 
   text {
@@ -12,4 +22,9 @@ page-home {
     font-size: 18px;
     color: #fff;
   }
+}
+
+.gridStyle {
+  text-align: center;
+  margin-top: 10%;
 }

@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, NgZone, OnDestroy } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import store from '../../app/store';
 
-import  { StatsPieChart } from '../../data/pieChart'
 
 import * as d3 from 'd3-selection';
 import * as d3Scale from "d3-scale";
@@ -11,7 +11,10 @@ import * as d3Shape from "d3-shape";
   selector: 'page-home',
   templateUrl: 'home.html'
 })
-export class HomePage {
+export class HomePage implements OnDestroy{
+  ngOnDestroy(): void {
+    store.setEventHandler(null)
+  }
 
   title: string = 'D3.js with Ionic 2!';
 
@@ -26,12 +29,41 @@ export class HomePage {
   color: any;
   svg: any;
 
+  transactions: any;
+  categories: any;
   data: any;
 
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController, private zone: NgZone) {
     this.width = 900 - this.margin.left - this.margin.right ;
     this.height = 500 - this.margin.top - this.margin.bottom;
     this.radius = Math.min(this.width, this.height) / 2;
+
+    this.categories = {};
+    this.transactions = store.getTransactions();
+
+    store.setEventHandler((transactions) => {
+      this.zone.run(() => {
+        console.log("event", transactions.length);
+
+        transactions.forEach(transaction => {
+          this.transactions.push(transaction)
+        });
+      })
+    });
+
+    // I feel bad for this...
+    this.transactions.forEach((transaction) => {
+      const { amount, category } = transaction;
+      this.categories[category] = (this.categories[category] || 0) + amount;
+    });
+
+    let tmp = [];
+    for (const category in this.categories) {
+      tmp.push({ category: category, amount: this.categories[category] }) ;
+    }
+
+    this.categories = tmp;
+
 
   }
 
@@ -43,16 +75,14 @@ export class HomePage {
 
   initSvg() {
     this.color = d3Scale.scaleOrdinal()
-      .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56"]);
+      .range(["#b8d0a6", "#d26f49", "#d5edf7", "#7e8787", "#b8824d"]);
     this.arc = d3Shape.arc()
       .outerRadius(this.radius - 10)
       .innerRadius(this.radius - 125);
     this.labelArc = d3Shape.arc()
       .outerRadius(this.radius - 40)
       .innerRadius(this.radius - 40);
-    this.pie = d3Shape.pie()
-      .sort(null)
-      .value((d: any) => d.population);
+    this.pie = d3Shape.pie()(this.categories.map((d) => d.amount));
 
     this.svg = d3.select("#pieChart")
       .append("svg")
@@ -65,13 +95,16 @@ export class HomePage {
 
   drawPie() {
     let g = this.svg.selectAll(".arc")
-      .data(this.pie(StatsPieChart))
+      .data(this.pie)
       .enter().append("g")
       .attr("class", "arc");
+
     g.append("path").attr("d", this.arc)
-      .style("fill", (d: any) => this.color(d.data.age) );
+      .style("fill", (d: any, index) => this.color(index));
+
     g.append("text").attr("transform", (d: any) => "translate(" + this.labelArc.centroid(d) + ")")
-      .attr("dy", ".35em")
-      .text((d: any) => d.data.age);
+      .attr("dy", ".5em")
+      .style("text-anchor", "middle")
+      .text((d: any, index) => this.categories[index].category)
   }
 }

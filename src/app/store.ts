@@ -1,7 +1,7 @@
 /* globals firebase */
 
 import firebase from 'firebase'
-
+import _ from 'lodash'
 
 const config = {
   apiKey: 'AIzaSyA7MHn5QVVqlWvDzvXmwUvh5C7WRuR6lWs',
@@ -26,7 +26,8 @@ starCountRef.on('value', (snapshot) => {
     return
   }
 
-  var _transactions = Object.values(snapshot.val())
+  var _transactions = _((snapshot.val()))
+    .values()
     .map(transaction => ({
       amount: parseFloat(transaction.amount),
       category: transaction.category,
@@ -35,7 +36,10 @@ starCountRef.on('value', (snapshot) => {
       date: new Date(transaction.date),
       id: transaction.id
     }))
+    .sortBy('date')
     .filter(t => !transactions || !transactions.find(({id}) => t.id === id))
+    .reverse()
+    .value()
 
   transactions = transactions !== null ? transactions.concat(_transactions) : _transactions
 
