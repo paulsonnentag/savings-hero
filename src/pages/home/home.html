@@ -5,11 +5,11 @@
 </ion-header>
 
 <ion-content padding>
-  <div class="category-pie">
+  <div class="category-pie" id="chartContainer">
     <div id="pieChart"></div>
+    <div id="barChart"></div>
   </div>
   <hr />
-  <div id="barChart"></div>
   <div class="spendingGrid">
     <ion-row responsive-sm>
       <ion-col width-25 (click)="loadBarChart('Groceries')">
