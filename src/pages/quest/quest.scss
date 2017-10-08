@@ -8,14 +8,14 @@ page-quest {
 
 .quest-stage {
   width: 100%;
-  height: 250px;
+  height: 185px;
   background-image: url('../assets/uncolored_castle.png');
   background-position: bottom;
   background-size: cover;
 }
 
 .quest-actions {
-  padding-top: 300px !important;
+  padding-top: 255px !important;
 }
 
 .hero-attacked {
@@ -55,20 +55,55 @@ page-quest {
   }
 }
 
+.quest-row {
+  display: flex;
+}
+
 .quest-stats {
-  padding: 20px;
+  margin-top: -3px;
+  padding: 10px 15px;
   background: #fff;
+  border-bottom: 0.55px solid #c8c7cc;
 }
 
 .bar {
   width: 100%;
   height:20px;
-  background: grey;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.bar-label {
+  width: 75px;
+  padding-top: 3px;
+}
+
+.bar-health {
+  background: rgba(216, 78, 99, 0.5);
+}
+
+.bar-health > .bar-inner{
+  background: #d54d62;
+}
+
+.bar-shield > .bar-inner {
+ background: #4E97D5;
+}
+
+.bar-shield {
+  background: rgba(78, 151, 213, 0.5);
+}
+
+.bar-value {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 200px;
+  margin-left: -100px;
+  text-align: center;
 }
 
 .bar-inner {
-  transition: 0.2s width ease-out;
-  background: red;
+  transition: 0.2s all ease-out;
   height: 100%;
 }

@@ -79,9 +79,12 @@ export class QuestPage {
   }
 
   getHealth () {
-    const percent = ((this.budget * 2) - this.spend) / (this.budget * 2)
+    const percent = ((this.budget * 2) - this.spend) / this.budget
 
-    Math.max(0.2, Math.min(1, percent))
+
+    console.log(Math.max(0.1, Math.min(1, percent * 2)), percent)
+
+    return Math.max(0.1, Math.min(1, percent * 2))
   }
 }
 
