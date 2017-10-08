@@ -1,34 +1,44 @@
-import {Component} from '@angular/core';
+import {Component, NgZone, OnDestroy} from '@angular/core';
 import {NavController} from 'ionic-angular';
+
+import store from '../../app/store'
+
 
 @Component({
   selector: 'page-quest',
   templateUrl: 'quest.html'
 })
-export class QuestPage {
+export class QuestPage implements OnDestroy{
+  ngOnDestroy(): void {
+    store.setEventHandler(null)
+  }
+
   spend = 0
 
   budget = 100
 
   actionQueue = []
 
+  transactions = []
 
   currentAction = null
 
+  constructor(public navCtrl: NavController, private zone: NgZone) {
 
-  constructor(public navCtrl: NavController) {
+    console.log('done')
 
+    this.transactions = store.getTransactions()
 
-    setTimeout(() => {
+    store.setEventHandler((transactions) => {
+      this.zone.run(() => {
+        console.log("event", transactions.length)
 
-      this.action({amount: 6})
-      this.action({amount: 20})
-      this.action({amount: 30})
-      this.action({amount: 500})
-
-
+        transactions.forEach(transaction => {
+          this.action(transaction)
+          this.transactions.push(transaction)
+        })
+      })
     })
-
   }
 
   public action(data) {
@@ -48,11 +58,7 @@ export class QuestPage {
     }
 
     this.currentAction = this.actionQueue[0]
-
     this.spend += this.currentAction.amount
-
-    console.log('dequee', this.actionQueue)
-
 
     setTimeout(() => {
       this.currentAction = null
@@ -80,9 +86,6 @@ export class QuestPage {
 
   getHealth () {
     const percent = ((this.budget * 2) - this.spend) / this.budget
-
-
-    console.log(Math.max(0.1, Math.min(1, percent * 2)), percent)
 
     return Math.max(0.1, Math.min(1, percent * 2))
   }
