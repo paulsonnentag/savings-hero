@@ -41,9 +41,8 @@ Well, No! Not at all. There are several demographic studies that show the distri
 ## Screenshots
 
 
----
 
-### Installation
+## Installation
 
 After installing all the dependencies
 ```bash
