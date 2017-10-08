@@ -40,19 +40,16 @@ Well, No! Not at all. There are several demographic studies that show the distri
 
 ## Screenshots
 #### Analytics
-<img src="https://i.imgur.com/koAGwiV.png" height="500"/>
-<img src="https://i.imgur.com/2M1CLQg.png" height="500"/>
+<img src="https://i.imgur.com/koAGwiV.png" height="500"/><img src="https://i.imgur.com/2M1CLQg.png" height="500"/>
 
 #### Daily expenses
 <img src="https://i.imgur.com/9aB04FM.png" height="500"/>
 
 #### Daily feedback
-<img src="https://i.imgur.com/wfXSDai.png" height="300"/>
-<img src="https://i.imgur.com/rScAt2M.png" height="300"/>
+<img src="https://i.imgur.com/wfXSDai.png" height="300"/><img src="https://i.imgur.com/rScAt2M.png" height="300"/>
 
 #### Week based savings
-<img src="https://i.imgur.com/oFxrV93.png" height="500"/>
-<img src="https://i.imgur.com/u951FaE.png" height="300"/>
+<img src="https://i.imgur.com/oFxrV93.png" height="500"/><img src="https://i.imgur.com/u951FaE.png" height="300"/>
 
 
 ## Installation
