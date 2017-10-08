@@ -2,8 +2,6 @@
 
 const firebase = window.firebase
 
-console.log('fuc')
-
 const config = {
   apiKey: 'AIzaSyA7MHn5QVVqlWvDzvXmwUvh5C7WRuR6lWs',
   authDomain: 'hacktomorrow-2fee6.firebaseapp.com',
