@@ -1,26 +1,30 @@
-This is a starter template for [Ionic](http://ionicframework.com/docs/) projects.
+# Savings Hero :muscle: :dollar:
 
-## How to use this template
+> Robotopia is a browser based programming environment for kids and young adults. The goal is to introduce kids to basic programming concepts with cute little robots.
 
-*This template does not work on its own*. The shared files for each starter are found in the [ionic2-app-base repo](https://github.com/ionic-team/ionic2-app-base).
+<p align="center">
+  <img src="https://github.com/paulsonnentag/savings-hero/blob/master/src/assets/adv/slide1.png" align="center" alt="Savings-Hero Slide"/>
+</p>
 
-To use this template, either create a new ionic project using the ionic node.js utility, or copy the files from this repository into the [Starter App Base](https://github.com/ionic-team/ionic2-app-base).
+## Features
 
-### With the Ionic CLI:
+- [x] Keep track of your expenses
+    - [x] Daily and Weekly overview
+    - [x] Detailed insights into where your money went
+- [x] Gamified
+    - [x] Throw away all the boring expense trackers
+    - [x] Let your avatar succeed on your journey
+- [x] Saving made easy
+    - [x] At the end of every week you will get a sum up
+    - [x] If you saved up on your budget, you can directly transfer money to your savings account
+- [x] Cute design
+    - [x] Casual game design
+    - [x] Awesome assets from [Kenney](http://kenney.nl)
 
-Take the name after `ionic2-starter-`, and that is the name of the template to be used when using the `ionic start` command below:
+---
+
+### Installation
 
 ```bash
-$ sudo npm install -g ionic cordova
-$ ionic start myTabs tabs
+
 ```
-
-Then, to run it, cd into `myTabs` and run:
-
-```bash
-$ ionic cordova platform add ios
-$ ionic cordova run ios
-```
-
-Substitute ios for android if not on a Mac.
-
