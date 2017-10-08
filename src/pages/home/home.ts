@@ -101,15 +101,6 @@ export class HomePage implements OnDestroy{
       .attr('viewBox','0 0 '+Math.min(this.width,this.height)+' '+Math.min(this.width,this.height))
       .append("g")
       .attr("transform", "translate(" + Math.min(this.width,this.height) / 2 + "," + Math.min(this.width,this.height) / 2 + ")");
-
-    this.svg2 = d3.select("#barChart")
-      .append("svg")
-      .attr("width", '100%')
-      .attr("height", '100%')
-      .attr('viewBox','0 0 900 500');
-
-    this.g = this.svg2.append("g")
-      .attr("transform", "translate(" + this.margin.left + "," + this.margin.top + ")");
   }
 
   drawPie() {
@@ -123,11 +114,20 @@ export class HomePage implements OnDestroy{
   }
 
   initAxis(category_list) {
-    this.x = d3Scale.scaleBand().rangeRound([0, this.width]);
-    this.y = d3Scale.scaleLinear().rangeRound([0, this.height]);
+    this.svg2 = d3.select("#barChart")
+      .append("svg")
+      .attr("width", '100%')
+      .attr("height", '100%')
+      .attr('viewBox','0 0 900 500');
+
+    this.g = this.svg2.append("g")
+      .attr("transform", "translate(" + this.margin.left + "," + this.margin.top + ")");
+
+    this.x = d3Scale.scaleLinear().rangeRound([this.width, 0]);
+    this.y = d3Scale.scaleBand();
 
     this.x.domain([0, d3Array.max(category_list, (d: any) => d.amount)]);
-    this.y.domain([0, d3Array.max(category_list, (d, index) => index)]);
+    this.y.domain(category_list.map((entry) => entry.name)).range([0, this.height]);
   }
 
   drawAxis(category_list) {
@@ -138,13 +138,15 @@ export class HomePage implements OnDestroy{
 
     this.g.append("g")
       .attr("class", "axis axis--y")
-      .call(d3Axis.axisLeft(this.y).ticks(category_list.length))
+      .call(d3Axis.axisLeft(this.y)
+        .scale(this.y)
+        .ticks(category_list.length))
       .append("text")
       .attr("class", "axis-title")
       .attr("transform", "rotate(-90)")
-      .attr("y", (d, index) => category_list.length)
+      .attr("y", (d, index) => index)
       .attr("dy", "1em")
-      .attr("text-anchor", "middle")
+      .attr("text-anchor", "left")
   }
 
   drawBars(category_list) {
@@ -153,9 +155,9 @@ export class HomePage implements OnDestroy{
       .enter().append("rect")
       .attr("class", "bar")
       .attr("x", (d) => this.x(d.amount) )
-      .attr("y", (d, index) => this.y(index))
-      .attr("width", this.x)
-      .attr("height", (d) => this.height);
+      .attr("y", (d, index) => this.y(d.name))
+      .attr("width", this.width)
+      .attr("height", this.height)
   }
 
   prettyPrintAmount (category) {
@@ -167,6 +169,8 @@ export class HomePage implements OnDestroy{
   }
 
   loadBarChart (category) {
+    d3.selectAll("#barChart > *").remove();
+    d3.selectAll("#pieChart > *").remove();
     this.active_category = category;
 
     this.active_category_map = {};
