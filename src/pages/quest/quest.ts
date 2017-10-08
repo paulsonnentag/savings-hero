@@ -16,7 +16,7 @@ export class QuestPage implements OnDestroy {
 
   spend = 0
 
-  budget = 50
+  budget = 130
 
   actionQueue = []
 

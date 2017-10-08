@@ -60,7 +60,9 @@ eventsRef.on('value', (snapshot) => {
     .values()
     .map(event => ({
       type: event.type,
-      date: new Date(event.date)
+      saved: event.saved,
+      date: new Date(event.date),
+      id: event.id
     }))
     .sortBy('date')
     .reverse()
@@ -87,5 +89,13 @@ export default {
 
   setSummaryEventHandler (cb) {
     summaryCallback = cb
+  },
+
+  saveMoney (id, amount) {
+    this.saved = amount
+
+    console.log('update', `events/${id}`)
+
+    db.ref(`events/${id}`).update({saved: amount})
   }
 }

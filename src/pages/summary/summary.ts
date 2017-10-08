@@ -6,8 +6,9 @@ import currencyFormatter from 'currency-formatter'
 import {SummaryModal} from "./summary-modal";
 import moment from 'moment'
 
-
 var budget = 100
+
+var goal = 500
 
 @Component({
   selector: 'page-summary',
@@ -19,6 +20,8 @@ export class SummaryPage implements OnDestroy {
   }
 
   budget = budget
+
+  goal = goal
 
   transactions = null
   events = null
@@ -51,6 +54,21 @@ export class SummaryPage implements OnDestroy {
     })
   }
 
+
+  getSaved () {
+    return (this.events || []).reduce((total, a) => {
+      if (a.saved) {
+        return a.saved + total
+      }
+
+      return total
+    }, 0)
+  }
+
+  getLevel () {
+    return this.getSaved() / 500
+  }
+
   openModal(summary) {
     const referenceDate = moment(summary.date).startOf('day')
     const beginning = summary.type === 'daily' ? referenceDate.clone() : referenceDate.clone().subtract(6, 'days')
@@ -66,8 +84,11 @@ export class SummaryPage implements OnDestroy {
     const spend = filteredTransactions.reduce((sum, event) => sum + event.amount, 0)
 
     const profileModal = this.modalCtrl.create(SummaryModal, {
-      budget,
+      id: summary.id,
+      budget: this.getBudget(summary),
+      saved: summary.saved,
       spend,
+      type: summary.type,
       date: this.formatDate(summary)
     });
     profileModal.present();
@@ -77,6 +98,20 @@ export class SummaryPage implements OnDestroy {
     if (event.type == 'daily') {
       return moment(event.date).format('dddd, MMM Do')
     }
+
+    return 'Weekly Summary'
+  }
+
+  getBalance (event) {
+    return this.prettyPrintCurrency(this.getBudget(event) - this.getSum(event))
+  }
+
+  isBalanceNegative (event) {
+    return (this.getBudget(event) - this.getSum(event)) < 0
+  }
+
+  getBudget (event) {
+    return event.type == 'weekly' ? budget * 20 : budget
   }
 
   getSum(event) {
@@ -94,14 +129,14 @@ export class SummaryPage implements OnDestroy {
     return filteredTransactions.reduce((sum, event) => sum + event.amount, 0)
   }
 
-  getIcon(sum) {
-    return budget >= sum ? '../assets/head_focus.png' : '../assets/head_hurt.png'
+  getIcon(event) {
+    return !this.isBalanceNegative(event) ? '../assets/head_focus.png' : '../assets/head_hurt.png'
   }
 
-  prettyPrintCurrency(amount) {
+  prettyPrintCurrency(amount, addSign = true) {
     var value = currencyFormatter.format(amount, {code: 'USD'})
 
-    if (amount > 0) {
+    if (amount > 0 && addSign) {
       return "+" + value
     }
 
