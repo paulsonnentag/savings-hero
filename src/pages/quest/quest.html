@@ -12,14 +12,14 @@
 
   <div ion-fixed class="quest-game-display">
 
-    <svg viewBox="0 0 400 300" class="quest-stage">
+    <svg viewBox="0 0 400 200" class="quest-stage">
 
-      <image x="0" y="100" height="150" width="150"
+      <image x="0" y="40" height="150" width="150"
              [attr.xlink:href]="getCharacterUrl()" class="hero" [class.hero-attacked]="currentAction !== null"></image>
 
 
       <g class="flying">
-        <image x="240" y="100" height="100" width="100" class="bat" [class.bat-attack]="currentAction !== null"
+        <image x="240" y="40" height="100" width="100" class="bat" [class.bat-attack]="currentAction !== null"
                xlink:href="../assets/bat.png"></image>
       </g>
 
@@ -29,37 +29,31 @@
 
     <div class="quest-stats">
 
-
-      <div class="bar">
-        <div class="bar-inner" [style.width]="(getShield() * 100) + '%'"></div>
+      <div class="quest-row">
+        <span class="bar-label">SHIELD</span>
+        <div class="bar bar-shield">
+          <div class="bar-inner" [style.width]="(getShield() * 100) + '%'"></div>
+        </div>
       </div>
 
 
-      <div class="bar">
-        <div class="bar-inner" [style.width]="(getHealth() * 100) + '%'"></div>
+      <div class="quest-row">
+        <span class="bar-label">HEALTH</span>
+
+        <div class="bar  bar-health" style="margin-bottom: 0;">
+          <div class="bar-inner" [style.width]="(getHealth() * 100) + '%'"></div>
+        </div>
       </div>
-
-
-      {{budget}} - {{spend}}
-
     </div>
-
 
   </div>
 
 
   <ion-list class="quest-actions">
 
-    <button (click)="action({ label: 'foo', value : 100})">bat attack</button>
-
-
-    {{currentAction}}
-
-
-    <ion-item>
-      <ion-icon name="leaf" item-start></ion-icon>
-      Herbology
-
+    <ion-item *ngFor="let transaction of transactions">
+      {{transaction.subcategory}}
     </ion-item>
+
   </ion-list>
 </ion-content>
