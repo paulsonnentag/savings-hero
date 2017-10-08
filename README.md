@@ -1,3 +1,5 @@
+[![built with JavaScript](https://img.shields.io/badge/built%20with-JavaScript-yellow.svg)](https://www.javascript.com)
+[![built with Ionic](https://img.shields.io/badge/built%20with-Ionic-blue.svg)](https://ionicframework.com)
 # Savings Hero :muscle: :dollar:
 
 **Saving money is hard.**   
