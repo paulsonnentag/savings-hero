@@ -1,6 +1,7 @@
 /* globals firebase */
 
-const firebase = window.firebase
+import firebase from 'firebase'
+
 
 const config = {
   apiKey: 'AIzaSyA7MHn5QVVqlWvDzvXmwUvh5C7WRuR6lWs',
@@ -20,22 +21,29 @@ let transactions = null
 let callback = null
 
 const starCountRef = firebase.database().ref('transactions');
-starCountRef.on('value', function(snapshot) {
-  const value = snapshot.val()
+starCountRef.on('value', (snapshot) => {
+  if (snapshot.val() == null) {
+    return
+  }
+
+  var _transactions = Object.values(snapshot.val())
     .map(transaction => ({
       amount: parseFloat(transaction.amount),
       category: transaction.category,
       subcategory: transaction.subcategory,
       desc: transaction.desc,
-      date: new Date(transaction.date)
+      date: new Date(transaction.date),
+      id: transaction.id
     }))
+    .filter(t => !transactions || !transactions.find(({id}) => t.id === id))
 
-  transactions = transactions === null ? transactions : transactions.concat(value)
+  transactions = transactions !== null ? transactions.concat(_transactions) : _transactions
 
   if (callback) {
-    callback(value)
+    callback(_transactions)
   }
-});
+})
+
 
 export default {
   getTransactions () {

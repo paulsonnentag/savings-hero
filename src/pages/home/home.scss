@@ -1,3 +1,15 @@
 page-home {
 
 }
+
+.arc {
+  &:hover {
+    opacity: .85;
+  }
+
+  text {
+    font-weight: 300;
+    font-size: 18px;
+    color: #fff;
+  }
+}

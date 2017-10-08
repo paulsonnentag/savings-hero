@@ -29,7 +29,6 @@ export class QuestPage implements OnDestroy {
 
     store.setEventHandler((transactions) => {
       this.zone.run(() => {
-
         if (this.transactions == null) {
           this.transactions = []
 
