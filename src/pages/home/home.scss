@@ -39,3 +39,17 @@ page-home {
 .amount {
  padding-top: 5px;
 }
+
+#chartContainer .bar {
+  fill: #6F257F !important;
+  height: 75px !important;
+}
+
+.axis--y, .axis--x {
+  font-size: 1.5em;
+}
+
+.selectedChart {
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 5%;
+}

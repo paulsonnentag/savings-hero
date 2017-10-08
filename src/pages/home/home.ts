@@ -126,7 +126,7 @@ export class HomePage implements OnDestroy{
     this.x = d3Scale.scaleLinear().rangeRound([this.width, 0]);
     this.y = d3Scale.scaleBand();
 
-    this.x.domain([0, d3Array.max(category_list, (d: any) => d.amount)]);
+    this.x.domain([0, d3Array.max(category_list, (d: any) => d.amount + 50)]);
     this.y.domain(category_list.map((entry) => entry.name)).range([0, this.height]);
   }
 
@@ -138,15 +138,8 @@ export class HomePage implements OnDestroy{
 
     this.g.append("g")
       .attr("class", "axis axis--y")
-      .call(d3Axis.axisLeft(this.y)
-        .scale(this.y)
-        .ticks(category_list.length))
-      .append("text")
-      .attr("class", "axis-title")
-      .attr("transform", "rotate(-90)")
-      .attr("y", (d, index) => index)
-      .attr("dy", "1em")
-      .attr("text-anchor", "left")
+      .call(d3Axis.axisRight(this.y)
+        .ticks((d, index) => this.y(category_list[index])))
   }
 
   drawBars(category_list) {
@@ -154,10 +147,8 @@ export class HomePage implements OnDestroy{
       .data(category_list)
       .enter().append("rect")
       .attr("class", "bar")
-      .attr("x", (d) => this.x(d.amount) )
+      .attr("x", (d) => this.x(d.amount))
       .attr("y", (d, index) => this.y(d.name))
-      .attr("width", this.width)
-      .attr("height", this.height)
   }
 
   prettyPrintAmount (category) {

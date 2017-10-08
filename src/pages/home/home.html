@@ -12,29 +12,29 @@
   <hr />
   <div class="spendingGrid">
     <ion-row responsive-sm>
-      <ion-col width-25 (click)="loadBarChart('Groceries')">
+      <ion-col width-25 (click)="loadBarChart('Groceries')" [class.selectedChart]="this.active_category === 'Groceries'">
         <ion-icon name="ios-cart" class="biggerIcon" [style]="getColor(0)"></ion-icon>
         Groceries
         <div class="amount">{{prettyPrintAmount('Groceries')}}</div>
       </ion-col>
-      <ion-col width-25 (click)="loadBarChart('Eat & Drink')">
+      <ion-col width-25 (click)="loadBarChart('Eat & Drink')" [class.selectedChart]="this.active_category === 'Eat & Drink'">
         <ion-icon name="pizza" class="biggerIcon" [style]="getColor(1)"></ion-icon>
         Eat & Drink
         <div class="amount">{{prettyPrintAmount('Eat & Drink')}}</div>
       </ion-col>
-      <ion-col width-25 (click)="loadBarChart('Medication')">
+      <ion-col width-25 (click)="loadBarChart('Medication')" [class.selectedChart]="this.active_category === 'Medication'">
         <ion-icon name="heart" class="biggerIcon" [style]="getColor(3)"></ion-icon>
         Medication
         <div class="amount">{{prettyPrintAmount('Medication')}}</div>
       </ion-col>
     </ion-row>
     <ion-row responsive-sm class="gridStyle">
-      <ion-col width-25 (click)="loadBarChart('Leisure')">
+      <ion-col width-25 (click)="loadBarChart('Leisure')" [class.selectedChart]="this.active_category === 'Leisure'">
         <ion-icon name="happy-outline" class="biggerIcon" [style]="getColor(4)"></ion-icon>
         Leisure
         <div class="amount">{{prettyPrintAmount('Leisure')}}</div>
       </ion-col>
-      <ion-col width-25 (click)="loadBarChart('Transportation')">
+      <ion-col width-25 (click)="loadBarChart('Transportation')" [class.selectedChart]="this.active_category === 'Transportation'">
         <ion-icon name="car" class="biggerIcon" [style]="getColor(2)"></ion-icon>
         Transport
         <div class="amount">{{prettyPrintAmount('Transportation')}}</div>
