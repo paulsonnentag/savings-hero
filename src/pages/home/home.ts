@@ -123,10 +123,10 @@ export class HomePage implements OnDestroy{
   }
 
   initAxis(category_list) {
-    this.x = d3Scale.scaleBand().rangeRound([0, this.width]);
-    this.y = d3Scale.scaleLinear().rangeRound([0, this.height]);
-    this.x.domain([0, d3Array.max(category_list, (d) => d.amount)]);
-    this.y.domain([0, d3Array.max(category_list, (d, index) => index)]);
+    this.x = d3Scale.scaleLinear().rangeRound([this.width, 0]);
+    this.y = d3Scale.scaleLinear().rangeRound([this.height, 0]);
+    this.x.domain([0, d3Array.max(category_list, (d: any) => d.amount)]);
+    this.y.domain([0, d3Array.max(category_list, (d, index) => index + 1)]);
   }
 
   drawAxis(category_list) {
@@ -137,7 +137,8 @@ export class HomePage implements OnDestroy{
 
     this.g.append("g")
       .attr("class", "axis axis--y")
-      .call(d3Axis.axisLeft(this.y).ticks(category_list.length))
+      .call(d3Axis.axisLeft(this.y)
+        .ticks(category_list.length))
       .append("text")
       .attr("class", "axis-title")
       .attr("transform", "rotate(-90)")
@@ -152,9 +153,9 @@ export class HomePage implements OnDestroy{
       .enter().append("rect")
       .attr("class", "bar")
       .attr("x", (d) => this.x(d.amount) )
-      .attr("y", (d, index) => this.y(index))
-      .attr("width", this.x)
-      .attr("height", (d) => this.height);
+      .attr("y", (d, index) => this.y(index + 1))
+      .attr("width", this.width)
+      .attr("height", this.height);
   }
 
   prettyPrintAmount (category) {
