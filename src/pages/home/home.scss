@@ -24,7 +24,21 @@ page-home {
   }
 }
 
-.gridStyle {
+.spendingGrid {
   text-align: center;
+  margin-top: 5%;
+}
+
+.gridStyle {
   margin-top: 10%;
+}
+
+.biggerIcon {
+  transform: scale(1.5, 1.5);
+  padding-right: 5px;
+  padding-top: 5px;
+}
+
+.amount {
+ padding-top: 5px;
 }
