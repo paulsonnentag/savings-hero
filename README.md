@@ -38,6 +38,9 @@ Well, No! Not at all. There are several demographic studies that show the distri
     - [x] Casual game design
     - [x] Awesome assets from [Kenney](http://kenney.nl)
 
+## Screenshots
+
+
 ---
 
 ### Installation
