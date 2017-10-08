@@ -1,0 +1,22 @@
+{
+"data": [{"amount": "32.92",
+  "subcategory": "Package Stores, Beer, Wine, and Liquor",
+   "category": "Eat & Drink",
+  "date": "2017-10-08T13:12:52.237554",
+  "desc": "DESERT DISCOUNT LIQUOR WEST WENDOVER NV"},
+ {"amount": "21.94",
+  "subcategory": "Fast Food Restaurants",
+   "category": "Eat & Drink",
+  "date": "2017-10-08T17:43:26.245976",
+  "desc": "STARBUCKS SALT LAGE CIT UT"},
+  {"amount": "76.99",
+  "subcategory": "Fast Food Restaurants",
+   "category": "Eat & Drink",
+  "date": "2017-10-08T20:37:11.231009",
+  "desc": "WENDYS #6067           MURRAY       UT"},
+{"amount": "4.99",
+  "subcategory": "Supermarkets",
+   "category": "Groceries",
+  "date": "2017-10-08T21:59:11.231009",
+  "desc": "7-ELEVEN 22967         SALT LAKE CIT UT"}]
+}
