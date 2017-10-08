@@ -1,9 +1,21 @@
 # Savings Hero :muscle: :dollar:
 
-> Robotopia is a browser based programming environment for kids and young adults. The goal is to introduce kids to basic programming concepts with cute little robots.
+**Saving money is hard.**   
+Especially since there is no nice way to track your expenses. All the existing approaches to this challenge are unattractive and mechanical... Nothing someone wants to look at several times a day.
+
+Our approach is different, **"Savings Hero"** combines financial expense tracking with fun features of RPG games. 
+Staying in budget will help you not only save money but also fight off the monsters that will get in your way on your journey to a nice little security. 
+
+You will probably ask yourself right now, "But isn't playing games only for kids?". 
+Well, No! Not at all. There are several demographic studies that show the distribution of especially casual games like Bejewelled (and Savings Hero) in more mature age bands. 
+
+**This is where we come in.**
+- You want to get a little bit of "fat" to make sure you won't have problems in case of an emergency? 
+- You want that nice new bike? 
+- You need some expensive medication? Here we are. Savings Hero will help you not only save money, but also have fun while doing so! 
 
 <p align="center">
-  <img src="https://github.com/paulsonnentag/savings-hero/blob/master/src/assets/adv/slide1.png" align="center" alt="Savings-Hero Slide"/>
+  <img src="https://raw.githubusercontent.com/paulsonnentag/savings-hero/master/src/assets/adv/slide1.png" align="center" alt="Savings-Hero Slide"/>
 </p>
 
 ## Features
