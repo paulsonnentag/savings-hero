@@ -22,7 +22,7 @@ export class HomePage implements OnDestroy{
   title: string = 'D3.js with Ionic 2!';
 
   margin = {top: 20, right: 20, bottom: 30, left: 50};
-  colors = ["#b8d0a6", "#d26f49", "#d5edf7", "#7e8787", "#b8824d"];
+  colors = ["#90b8db", "#90dbb8", "#db9790", "#bf90db", "#dbdb90"];
 
   width: number;
   height: number;
@@ -125,6 +125,8 @@ export class HomePage implements OnDestroy{
   }
 
   drawPie() {
+    this.svg.innerHtml = ''
+
     let g = this.svg.selectAll(".arc")
       .data(this.pie)
       .enter().append("g")
@@ -206,7 +208,7 @@ export class HomePage implements OnDestroy{
     this.initAxis(this.active_category_list)
     this.drawBars(this.active_category_list)
     this.drawAxis(this.active_category_list)
-    
+
     for (let item of [].slice.call(document.querySelectorAll('rect.bar'))) {
       item.setAttribute('fill', {
         'Groceries': this.colors[0],
