@@ -2,8 +2,6 @@
 
 const firebase = window.firebase
 
-console.log('fuc')
-
 const config = {
   apiKey: 'AIzaSyA7MHn5QVVqlWvDzvXmwUvh5C7WRuR6lWs',
   authDomain: 'hacktomorrow-2fee6.firebaseapp.com',
@@ -28,6 +26,7 @@ starCountRef.on('value', function(snapshot) {
       amount: parseFloat(transaction.amount),
       category: transaction.category,
       subcategory: transaction.subcategory,
+      desc: transaction.desc,
       date: new Date(transaction.date)
     }))
 

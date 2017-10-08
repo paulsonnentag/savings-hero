@@ -2,6 +2,7 @@ import {Component, NgZone, OnDestroy} from '@angular/core';
 import {NavController} from 'ionic-angular';
 
 import store from '../../app/store'
+import currencyFormatter from 'currency-formatter'
 
 
 @Component({
@@ -24,9 +25,6 @@ export class QuestPage implements OnDestroy{
   currentAction = null
 
   constructor(public navCtrl: NavController, private zone: NgZone) {
-
-    console.log('done')
-
     this.transactions = store.getTransactions()
 
     store.setEventHandler((transactions) => {
@@ -41,7 +39,7 @@ export class QuestPage implements OnDestroy{
     })
   }
 
-  public action(data) {
+  action(data) {
     if (this.actionQueue.length !== 0) {
       this.actionQueue.push(data)
       return
@@ -88,6 +86,25 @@ export class QuestPage implements OnDestroy{
     const percent = ((this.budget * 2) - this.spend) / this.budget
 
     return Math.max(0.1, Math.min(1, percent * 2))
+  }
+
+  prettyPrintCurrency (amount) {
+    return currencyFormatter.format(amount, { code: 'USD' })
+  }
+
+  getIconOfTransaction (category) {
+    switch (category) {
+      case 'Groceries':
+        return 'ios-cart'
+      case 'Eat & Drink':
+        return 'pizza'
+      case 'Medication':
+        return 'heart'
+      case 'Leisure':
+        return 'happy-outline'
+      case 'Transportation':
+        return 'car'
+    }
   }
 }
 

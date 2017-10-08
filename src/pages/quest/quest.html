@@ -52,7 +52,9 @@
   <ion-list class="quest-actions">
 
     <ion-item *ngFor="let transaction of transactions">
-      {{transaction.subcategory}}
+      <ion-icon [name]="getIconOfTransaction(transaction.category)" item-start></ion-icon>
+      {{transaction.desc}}
+      <div item-end>{{prettyPrintCurrency(transaction.amount)}}</div>
     </ion-item>
 
   </ion-list>
