@@ -9,7 +9,7 @@ import currencyFormatter from 'currency-formatter'
   selector: 'page-quest',
   templateUrl: 'quest.html'
 })
-export class QuestPage implements OnDestroy{
+export class QuestPage implements OnDestroy {
   ngOnDestroy(): void {
     store.setEventHandler(null)
   }
@@ -20,7 +20,7 @@ export class QuestPage implements OnDestroy{
 
   actionQueue = []
 
-  transactions = []
+  transactions = null
 
   currentAction = null
 
@@ -29,12 +29,21 @@ export class QuestPage implements OnDestroy{
 
     store.setEventHandler((transactions) => {
       this.zone.run(() => {
-        console.log("event", transactions.length)
 
-        transactions.forEach(transaction => {
-          this.action(transaction)
-          this.transactions.push(transaction)
-        })
+        if (this.transactions == null) {
+          this.transactions = []
+
+          transactions.forEach(transaction => {
+            this.spend += transaction.amount
+            this.transactions.push(transaction)
+          })
+
+        } else {
+          transactions.forEach(transaction => {
+            this.action(transaction)
+            this.transactions.push(transaction)
+          })
+        }
       })
     })
   }
@@ -82,17 +91,17 @@ export class QuestPage implements OnDestroy{
     return Math.max(0, Math.min(1, percent))
   }
 
-  getHealth () {
+  getHealth() {
     const percent = ((this.budget * 2) - this.spend) / this.budget
 
-    return Math.max(0.1, Math.min(1, percent * 2))
+    return Math.max(0.02, Math.min(1, percent * 2))
   }
 
-  prettyPrintCurrency (amount) {
-    return currencyFormatter.format(amount, { code: 'USD' })
+  prettyPrintCurrency(amount) {
+    return currencyFormatter.format(amount, {code: 'USD'})
   }
 
-  getIconOfTransaction (category) {
+  getIconOfTransaction(category) {
     switch (category) {
       case 'Groceries':
         return 'ios-cart'

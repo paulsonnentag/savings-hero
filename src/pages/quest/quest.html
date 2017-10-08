@@ -8,22 +8,15 @@
 
 
 <ion-content>
-
-
   <div ion-fixed class="quest-game-display">
-
     <svg viewBox="0 0 400 200" class="quest-stage">
-
       <image x="0" y="40" height="150" width="150"
              [attr.xlink:href]="getCharacterUrl()" class="hero" [class.hero-attacked]="currentAction !== null"></image>
-
 
       <g class="flying">
         <image x="240" y="40" height="100" width="100" class="bat" [class.bat-attack]="currentAction !== null"
                xlink:href="../assets/bat.png"></image>
       </g>
-
-
     </svg>
 
 
@@ -46,16 +39,28 @@
       </div>
     </div>
 
+    <ion-toolbar>
+      <div style="float:right; font-size: 17px; margin-right: 12px;">{{prettyPrintCurrency(budget)}}</div>
+      <div style="margin-left: 10px;font-size: 17px">Budget</div>
+    </ion-toolbar>
+
   </div>
 
 
-  <ion-list class="quest-actions">
+  <ion-list class="quest-actions" no-lines>
 
     <ion-item *ngFor="let transaction of transactions">
       <ion-icon [name]="getIconOfTransaction(transaction.category)" item-start></ion-icon>
       {{transaction.desc}}
-      <div item-end>{{prettyPrintCurrency(transaction.amount)}}</div>
+      <div item-end>-{{prettyPrintCurrency(transaction.amount)}}</div>
     </ion-item>
 
   </ion-list>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <div style="float:right; font-size: 17px; margin-right: 12px;">{{prettyPrintCurrency(budget - spend)}}</div>
+    <div style="margin-left: 15px;font-size: 17px">Sum</div>
+  </ion-toolbar>
+</ion-footer>

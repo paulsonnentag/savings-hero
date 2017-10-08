@@ -15,7 +15,7 @@ firebase.initializeApp(config)
 
 const db = firebase.database()
 
-let transactions = []
+let transactions = null
 
 let callback = null
 
@@ -30,7 +30,7 @@ starCountRef.on('value', function(snapshot) {
       date: new Date(transaction.date)
     }))
 
-  transactions = transactions.concat(value)
+  transactions = transactions === null ? transactions : transactions.concat(value)
 
   if (callback) {
     callback(value)
