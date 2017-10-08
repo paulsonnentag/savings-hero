@@ -1,3 +1,74 @@
 page-quest {
 
 }
+
+.quest-game-display {
+  width: 100%;
+}
+
+.quest-stage {
+  width: 100%;
+  height: 250px;
+  background-image: url('../assets/uncolored_castle.png');
+  background-position: bottom;
+  background-size: cover;
+}
+
+.quest-actions {
+  padding-top: 300px !important;
+}
+
+.hero-attacked {
+  animation: 0.2s infinite attacked ease-in-out;
+}
+
+.flying {
+  animation: 0.5s infinite alternate fly ease-in-out;
+}
+
+.bat {
+  transition: 0.5s transform ease-in-out;
+}
+
+.bat-attack {
+  transform: translate(-100px, 0);
+}
+
+@keyframes attacked{
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes fly {
+  0% {
+    transform: translate(0, 0);
+  }
+
+
+  100% {
+    transform: translate(0, 20px);
+  }
+}
+
+.quest-stats {
+  padding: 20px;
+  background: #fff;
+}
+
+.bar {
+  width: 100%;
+  height:20px;
+  background: grey;
+  margin-bottom: 20px;
+}
+
+.bar-inner {
+  transition: 0.2s width ease-out;
+  background: red;
+  height: 100%;
+}
