@@ -1,0 +1,12 @@
+.report-image {
+  height: 130px;
+  width: 100%;
+  background-image: url('../assets/female_fall.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.report-image.report-success {
+  background-image: url('../assets/female_cheer1.png');
+}

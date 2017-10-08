@@ -17,8 +17,10 @@ firebase.initializeApp(config)
 const db = firebase.database()
 
 let transactions = null
+let events = null
 
 let callback = null
+let summaryCallback = null
 
 const starCountRef = firebase.database().ref('transactions');
 starCountRef.on('value', (snapshot) => {
@@ -48,13 +50,39 @@ starCountRef.on('value', (snapshot) => {
   }
 })
 
+const eventsRef = firebase.database().ref('events');
+eventsRef.on('value', (snapshot) => {
+  if (snapshot.val() == null) {
+    return
+  }
+
+  events = _((snapshot.val()))
+    .values()
+    .map(events => events)
+    .sortBy('date')
+    .reverse()
+    .value()
+
+
+  if (callback) {
+    summaryCallback(events)
+  }
+})
 
 export default {
   getTransactions () {
     return transactions
   },
 
+  getEvents () {
+    return events
+  },
+
   setEventHandler (cb) {
     callback = cb
+  },
+
+  setSummaryEventHandler (cb) {
+    summaryCallback = cb
   }
 }

@@ -27,6 +27,12 @@ export class QuestPage implements OnDestroy {
   constructor(public navCtrl: NavController, private zone: NgZone) {
     this.transactions = store.getTransactions()
 
+    if (this.transactions !== null) {
+      this.transactions.forEach(transaction => {
+        this.spend += transaction.amount
+      })
+    }
+
     store.setEventHandler((transactions) => {
       this.zone.run(() => {
         if (this.transactions == null) {
