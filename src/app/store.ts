@@ -69,7 +69,7 @@ eventsRef.on('value', (snapshot) => {
     .value()
 
 
-  if (callback) {
+  if (summaryCallback) {
     summaryCallback(events)
   }
 })

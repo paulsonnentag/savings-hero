@@ -58,13 +58,35 @@ export class HomePage implements OnDestroy{
 
     store.setEventHandler((transactions) => {
       this.zone.run(() => {
-        console.log("event", transactions.length);
+        if (!this.transactions) {
+          this.transactions = []
+        }
 
         transactions.forEach(transaction => {
           this.transactions.push(transaction)
         });
+
+        this.map_categories = {};
+
+        // I feel bad for this...
+        this.transactions.forEach((transaction) => {
+          const { amount, category } = transaction;
+          this.map_categories[category] = (this.map_categories[category] || 0) + amount;
+        });
+
+        this.categories = [];
+        for (const category in this.map_categories) {
+          this.categories.push({ category: category, amount: this.map_categories[category] }) ;
+        }
+
+        this.initSvg();
+        this.drawPie();
       })
     });
+
+    if (!this.transactions) {
+      return
+    }
 
     // I feel bad for this...
     this.transactions.forEach((transaction) => {
@@ -76,12 +98,11 @@ export class HomePage implements OnDestroy{
     for (const category in this.map_categories) {
       this.categories.push({ category: category, amount: this.map_categories[category] }) ;
     }
-  }
 
-  ionViewDidLoad() {
     this.initSvg();
     this.drawPie();
   }
+
 
   initSvg() {
     this.color = d3Scale.scaleOrdinal()
@@ -117,7 +138,7 @@ export class HomePage implements OnDestroy{
     this.svg2 = d3.select("#barChart")
       .append("svg")
       .attr("width", '100%')
-      .attr("height", '100%')
+      .attr("height", '343px')
       .attr('viewBox','0 0 900 500');
 
     this.g = this.svg2.append("g")
@@ -164,6 +185,7 @@ export class HomePage implements OnDestroy{
     d3.selectAll("#pieChart > *").remove();
     this.active_category = category;
 
+
     this.active_category_map = {};
 
     this.transactions.forEach((transaction) => {
@@ -184,5 +206,15 @@ export class HomePage implements OnDestroy{
     this.initAxis(this.active_category_list)
     this.drawBars(this.active_category_list)
     this.drawAxis(this.active_category_list)
+    
+    for (let item of [].slice.call(document.querySelectorAll('rect.bar'))) {
+      item.setAttribute('fill', {
+        'Groceries': this.colors[0],
+        'Eat & Drink': this.colors[1],
+        'Medication': this.colors[3],
+        'Leisure': this.colors[4],
+        'Transportation': this.colors[2]
+      }[category])
+    }
   }
 }
