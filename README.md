@@ -1,3 +1,8 @@
+> Note: This is a hackathon project in it's really early stages. There currently are no more updates to this repository. If you want any further information, feel free to contact paul.sonnentag@gmail.com
+Have fun exploring the app and saving money
+
+[![built with JavaScript](https://img.shields.io/badge/built%20with-JavaScript-yellow.svg)](https://www.javascript.com)
+[![built with Ionic](https://img.shields.io/badge/built%20with-Ionic-blue.svg)](https://ionicframework.com)
 # Savings Hero :muscle: :dollar:
 
 **Saving money is hard.**   
@@ -33,10 +38,18 @@ Well, No! Not at all. There are several demographic studies that show the distri
     - [x] Casual game design
     - [x] Awesome assets from [Kenney](http://kenney.nl)
 
----
+## Screenshots
 
-### Installation
 
+
+## Installation
+
+After installing all the dependencies
 ```bash
-
+npm install
+npm install -g cordova ionic
+npm run ionic:serve
 ```
+
+You can simply head over to localhost:8100 to take a look at the app. 
+(Make sure to use Chrome and enter the dev tools to preview the app with a smartphone preset)
